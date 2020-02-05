@@ -54,6 +54,21 @@ AI安全对抗赛第二名方案               --本项目基于飞桨PaddlePadd
 ### 小扰动截断
 使用上述方法后，我的结果在95-96分之间波动，为进一步提升成绩，我选用最高分96.53分图片进行后处理。后处理方法为：**将攻击后的图片与原图片进行对比，对一定阈值以下的扰动进行截断。** 经过不断上探阈值，发现阈值为17(图片的像素范围为0-255)的时候效果最好。此方法提分0.3左右。
 
+### 参考文献
+
+[1] Liu Y , Chen X , Liu C , et al. Delving into Transferable Adversarial Examples and Black-box Attacks[J]. 2016.
+
+[2] Shi Y , Wang S , Han Y . Curls & Whey: Boosting Black-Box Adversarial Attacks[J]. 2019.
+
+[3] Narodytska N , Kasiviswanathan S P . Simple Black-Box Adversarial Perturbations for Deep Networks[J]. 2016.
+
+[4] Huang Q , Katsman I , He H , et al. Enhancing Adversarial Example Transferability with an Intermediate Level Attack[J]. 2019.
+
+[5] https://www.cs.cmu.edu/~sbhagava/papers/face-rec-ccs16.pdf
+
+[6] Understanding and Enhancing the Transferability of Adversarial Examples
+
+
 ## 代码使用说明
 - python3
 - paddle
