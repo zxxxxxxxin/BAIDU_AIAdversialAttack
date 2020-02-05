@@ -15,6 +15,7 @@ AI安全对抗赛第二名方案               --本项目基于飞桨PaddlePadd
 ### 模型集成
 集成模型选取思路为多元，尽可能多的不同模型，才可能逼近赛题背后的黑盒模型。
 <div align=center><img src="https://github.com/sleepingxin/BAIDU_AIAdversialAttack/blob/master/pictures/图3.1.png"/></div>
+
 * 橙色和蓝色框中模型均采用pytorch进行迁移训练，训练集测试集为原始Stanford Dogs数据集划分，迭代次数均为25，学习率均为0.001。随后将pytorch转换为oxnn模型，再用x2paddle转换为paddle模型。
 
 * 红色框中模型为直接用paddlepaddle训练而来，迭代次数为20，其余参数与前述相同。
@@ -31,6 +32,7 @@ AI安全对抗赛第二名方案               --本项目基于飞桨PaddlePadd
 此方法受启发于[2]，论文中采取双路寻优，一路采用常规方法梯度上升，如图中绿线所示。另一路先采取梯度下降到达这一分类局部最优再进行梯度上升，以期找到更快的上升路径，如图3.3中蓝线所示。
 而本人在实现过程中，对其进行简化，仅在迭代的第一步进行梯度下降。
 <div align=center><img src="https://github.com/sleepingxin/BAIDU_AIAdversialAttack/blob/master/pictures/图3.3.jpg"/></div>
+
 * 小粒度
 随机选取梯度中5%进行取反，可视为像素粒度的梯度反向，反转比例为一超参数。
 
@@ -48,10 +50,13 @@ AI安全对抗赛第二名方案               --本项目基于飞桨PaddlePadd
 我的做法与此不同，我认为不仅要越过边界，还要走向这个错误分类的低谷。此举依据的假设是:尽管不同模型的分界线存在差异，模型学到的特征应是相似的。思路如图3.4中红色箭头所示，带有圆圈的数字表示迭代步数。
 因此，在成功攻击之后，我又添加了两步定向攻击，目标为攻击成功时被错分的类别。在集成攻击时，目标为被错分类别的众数。
 <div align=center><img src="https://github.com/sleepingxin/BAIDU_AIAdversialAttack/blob/master/pictures/图3.4.png"/></div>
+
 ### 小扰动截断
 使用上述方法后，我的结果在95-96分之间波动，为进一步提升成绩，我选用最高分96.53分图片进行后处理。后处理方法为：**将攻击后的图片与原图片进行对比，对一定阈值以下的扰动进行截断。**经过不断上探阈值，发现阈值为17(图片的像素范围为0-255)的时候效果最好。此方法提分0.3左右。
 
-## 代码说明
-
+## 代码使用说明
+在本目录下输入 python 9model_ensemble_attack.py
+              python pert_drop.py
+结果保存在posopt_output_image
 
 
