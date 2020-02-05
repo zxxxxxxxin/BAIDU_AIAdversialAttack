@@ -55,8 +55,15 @@ AI安全对抗赛第二名方案               --本项目基于飞桨PaddlePadd
 使用上述方法后，我的结果在95-96分之间波动，为进一步提升成绩，我选用最高分96.53分图片进行后处理。后处理方法为：**将攻击后的图片与原图片进行对比，对一定阈值以下的扰动进行截断。**经过不断上探阈值，发现阈值为17(图片的像素范围为0-255)的时候效果最好。此方法提分0.3左右。
 
 ## 代码使用说明
-在本目录下输入 python 9model_ensemble_attack.py
-              python pert_drop.py
+- python3
+- paddle
+- numpy
+
+在本目录下输入 
+```bash
+python 9model_ensemble_attack.py
+python pert_drop.py
+```
 结果保存在posopt_output_image
 
 
